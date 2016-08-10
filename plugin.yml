@@ -1,0 +1,32 @@
+name: SandFall
+main: com.PilzBros.SandFall.SandFall
+version: 2.1.1
+description: SandFall adventure game!
+author: Austin Pilz
+website: http://sandfall.austinpilz.com
+load: POSTWORLD
+depend: [ProtocolLib]
+softdepend: [Multiverse-Core, Multiworld]
+commands:
+    sandfall:
+        description: SandFall
+    sandfalladmin:
+        description: SandFall Admin Commands
+    sf:
+        description: SandFall alias
+    sfa:
+        description: SandFall Admin Commands alias
+permissions:
+    sandfall.*:
+        description: Gives all access to SandFall admin commands
+        children:
+            sandfall.admin: true
+            sandfall.user: true
+        default: op
+    sandfall.admin:
+        description: Gives admin access to SandFall admin commands
+        default: op
+    sandfall.user:
+        description: User level permissions to play SandFall
+        default: true
+
