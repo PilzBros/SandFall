@@ -1,11 +1,13 @@
 package com.PilzBros.SandFall.Command;
 
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.HashSet;
 import java.util.Map.Entry;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,13 +16,12 @@ import org.bukkit.entity.Player;
 import com.PilzBros.SandFall.SandFall;
 import com.PilzBros.SandFall.Item.Arena;
 import com.PilzBros.SandFall.Manager.ArenaCreation;
-import com.PilzBros.SandFall.Plugin.Setting;
-import com.PilzBros.SandFall.Plugin.Settings;
 
 public class SFAdminCommand implements CommandExecutor
 {
 	private SandFall sf;
-	
+	private Object Set;
+
 	public SFAdminCommand(SandFall sf)
 	{
 		this.sf = sf;
@@ -88,6 +89,10 @@ public class SFAdminCommand implements CommandExecutor
 				else if (args[0].equalsIgnoreCase("setup"))
 				{
 					sender.sendMessage(SandFall.pluginAdminPrefix + ChatColor.RED + "Arena name not supplied. To setup an arena: " + ChatColor.GOLD + "/sandfalladmin setup [arena]");
+				}
+				else if (args[0].equalsIgnoreCase("here"))
+				{
+					ArenaCreation.select(Bukkit.getPlayer(sender.getName()), Bukkit.getPlayer(sender.getName()).getTargetBlock((HashSet<Material>)null, 10).getLocation());
 				}
 				else if (args[0].equalsIgnoreCase("delete"))
 				{

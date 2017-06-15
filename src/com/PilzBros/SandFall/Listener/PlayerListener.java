@@ -44,33 +44,24 @@ public class PlayerListener implements Listener
 		this.sf = sf;
 	}
 	
-	@EventHandler()
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPlayerInteract(PlayerInteractEvent event)
+	{
+		//Check to see if they're using the selection tool - which means they're trying to setup an arena
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getPlayer().getItemInHand().getTypeId() == Settings.getGlobalInt(Setting.SelectionTool))
 		{
-			if ( ArenaCreation.players.containsKey(event.getPlayer().getName()))
+			if (ArenaCreation.players.containsKey(event.getPlayer().getName()))
 			{
-				ArenaCreation.select(event.getPlayer(), event.getClickedBlock());
-				event.setCancelled(true);
-			}
-			else if (ArenaCreation.players.containsKey(event.getPlayer().getName()))
-			{
-				ArenaCreation.select(event.getPlayer(), event.getClickedBlock());
+				ArenaCreation.select(event.getPlayer(), event.getClickedBlock().getLocation());
 				event.setCancelled(true);
 			}
 		}
 		else if (SandFall.gameController.playerPlaying(event.getPlayer()))
 		{
+			//Disable any interactions for players who are waiting for the game to begin
 			if (SandFall.gameController.players.get(event.getPlayer().getName()).gameManager.inWaiting)
 			{
 				event.setCancelled(true);
-			}
-			else if (SandFall.gameController.players.get(event.getPlayer().getName()).gameManager.inProgress)
-			{
-				/*
-				if (!event.getClickedBlock().getType().equals(Material.WOOD))
-					event.setCancelled(true);
-				*/
 			}
 		}
 	}
@@ -90,7 +81,6 @@ public class PlayerListener implements Listener
 		
 		if (Settings.getGlobalBoolean(Setting.NotifyOnAustinPilz))
 		{
-			//If setting is enabled, notifies the user if I join the server
 			if (player.getName().equalsIgnoreCase("austinpilz"))
 			{
 				for(Player p : Bukkit.getServer().getOnlinePlayers())
@@ -150,8 +140,6 @@ public class PlayerListener implements Listener
 						player.getValue().gameManager.pm.playerRespawn(Bukkit.getPlayer(player.getKey()));
 						SandFall.gameController.respawn.remove(player.getKey());
 					}
-					//SandFall.gameController.arenas.containsKey("hi");
-					//SandFall.gameManager.pm.playerRespawn(tmp.gameManager.tempRespawn);
 				}
 				
 			}, 1); 
@@ -169,7 +157,7 @@ public class PlayerListener implements Listener
 			if (event.getEntity() instanceof Player)
 			{
 				Player damaged = (Player)event.getEntity();
-				if (SandFall.gameController.playerPlaying(damaged))
+				if (SandFall.gameController.playerPlaying(damaged) && !Settings.getGlobalBoolean(Setting.FriendlyFire))
 				{
 					if(event.getDamager() instanceof Player)
 		            {

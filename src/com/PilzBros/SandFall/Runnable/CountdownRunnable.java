@@ -20,37 +20,32 @@ public class CountdownRunnable extends BukkitRunnable
 			for(Entry<String, Arena> a : SandFall.gameController.arenas.entrySet()) 
 			{
 				Arena arena = a.getValue();
+
+				//Determine arena game status
 				if (arena.gameManager.inWaiting)
 				{
+						//Check to see if there are players in the arena
 						if (!arena.gameManager.playing.isEmpty())
 						{
+							//Check to see if the game time has expired
 							if (arena.gameManager.countdownSeconds <= 0)
 							{
 								arena.gameManager.timesUp();
 							}
 							else
 							{
+								//Decrement second from the game time
 								arena.gameManager.countdownSeconds--;
 								arena.gameManager.scoreboard.updateCountown();
-								arena.signController.updateSigns();
+								arena.signController.updateSigns(); //This could be pretty resource intensive
 								
 								if (arena.gameManager.countdownSeconds <= 0)
 								{
 									arena.gameManager.timesUp();
 								}
-								else if (arena.gameManager.countdownSeconds <= 5)
+								else if (arena.gameManager.countdownSeconds < 5 && arena.gameManager.countdownSeconds > 0)
 								{
-									if (arena.gameManager.countdownSeconds == 5)
-										arena.gameManager.countdownNotify();
-									else if (arena.gameManager.countdownSeconds == 4)
-										arena.gameManager.countdownNotify();
-									else if (arena.gameManager.countdownSeconds == 3)
-										arena.gameManager.countdownNotify();
-									else if (arena.gameManager.countdownSeconds == 2)
-										arena.gameManager.countdownNotify();
-									else if (arena.gameManager.countdownSeconds == 1)
-										arena.gameManager.countdownNotify();
-				
+									arena.gameManager.countdownNotify();
 								}
 							}
 						}
@@ -65,13 +60,13 @@ public class CountdownRunnable extends BukkitRunnable
 						}
 						else if (arena.gameManager.timeLeft == 10)
 						{
-							//Make it rain
+							//Make it rain sand
 							arena.makeItRain();
 							arena.gameManager.timeLeft--;
 						}
 						else if (arena.gameManager.timeLeft == 0)
 						{
-							//Force the game to end
+							//Force the game to end if someone is still somehow alive
 							arena.gameManager.forceEnd();
 						}
 					}

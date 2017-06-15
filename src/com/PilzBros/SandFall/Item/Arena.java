@@ -270,7 +270,7 @@ public class Arena
 	 */
 	public void makeItRain()
 	{
-double temp;
+		double temp;
 		
 		if (wood1X > wood2X)
 		{

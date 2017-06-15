@@ -31,12 +31,12 @@ public class SandFall extends JavaPlugin implements Listener
 {
 	//Strings
 	public static final String pluginName = "SandFall";
-	public static final String pluginVersion = "2.1.1";
+	public static final String pluginVersion = "2.2";
 	public static final String pluginPrefix = ChatColor.GOLD + "[SandFall] " + ChatColor.WHITE;
 	public static final String pluginAdminPrefix = ChatColor.GOLD + "[SandFall Admin] " + ChatColor.WHITE;
 	public static final String signPrefix = ChatColor.GOLD + "[SandFall]";
 	public static final String consolePrefix = "[SandFall]";
-	public static final String pluginWebsite = "http://sandfall.austinpilz.com";
+	public static final String pluginWebsite = "https://www.spigotmc.org/resources/sandfall.14867/";
 	public static final String signJoinText = ChatColor.GREEN + "Join";
 	public static final String signWaitingText = ChatColor.AQUA + "Starting in";
 	public static final String signInprogressText = ChatColor.LIGHT_PURPLE + "In Progress";
@@ -117,26 +117,26 @@ public class SandFall extends JavaPlugin implements Listener
 
 		
 		//Metrics Reporting
-				// - Option in global.yml to opt-out
-				if (Settings.getGlobalBoolean(Setting.ReportMetrics))
-				{
-					try 
-					{
-					    MetricsLite metrics = new MetricsLite(this);
-					    metrics.start();
-					   log.log(Level.INFO, "[SandFall] Metrics submitted");
-					} 
-					catch (IOException e) 
-					{
-					log.log(Level.WARNING, "[SandFall] Metrics reporting failed");
-					}
-				}
-				else
-				{
-					log.log(Level.INFO, "[SandFall] Metric reporting disabled");
-				}
-				
-				log.log(Level.INFO, "[SandFall] Bootup took " + (System.currentTimeMillis() % 1000 - startMili) + " ms"); 
+		// - Option in global.yml to opt-out
+		if (Settings.getGlobalBoolean(Setting.ReportMetrics))
+		{
+			try
+			{
+				MetricsLite metrics = new MetricsLite(this);
+				metrics.start();
+			   log.log(Level.INFO, "[SandFall] Metrics submitted");
+			}
+			catch (IOException e)
+			{
+			log.log(Level.WARNING, "[SandFall] Metrics reporting failed");
+			}
+		}
+		else
+		{
+			log.log(Level.INFO, "[SandFall] Metric reporting disabled");
+		}
+
+		log.log(Level.INFO, "[SandFall] Bootup took " + (System.currentTimeMillis() - startMili) % 1000 + " ms");
 	}
 	
 	public void onReload()

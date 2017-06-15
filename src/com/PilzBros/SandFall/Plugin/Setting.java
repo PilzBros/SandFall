@@ -17,6 +17,7 @@ public enum Setting {
 	InGameCommands("Gameplay.InGameCommands", false),
 	InGameTeleport("Gameplay.Teleporting", false),
 	SignStats("Gameplay.RealtimeSignStats", true),
+	FriendlyFire("Gameplay.AllowFriendlyFire", false),
 	
 	//Game Messages
 	WaitingMessage("Messages.InGame.WaitingMessage","SandFall will begin after the countdown finishes. To leave, type /sandfall quit"),
